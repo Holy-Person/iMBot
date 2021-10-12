@@ -2,7 +2,7 @@ const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
 require('dotenv').config();
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -13,7 +13,7 @@ for (const file of commandFiles) {
 }
 
 client.once('ready', () => {
-	console.log('Ready!');
+	console.log(`Ready and logged in as ${client.user.id}`);
 });
 
 client.on('interactionCreate', async interaction => {
@@ -29,6 +29,14 @@ client.on('interactionCreate', async interaction => {
 		console.error(error);
 		return interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 	}
+});
+
+client.on('messageCreate', message => {
+	if(message.author.bot) {return;}
+	
+  if (message.content === '!ping') {
+    message.channel.send('pong');
+  }
 });
 
 client.login(process.env.DISCORD_TOKEN);
