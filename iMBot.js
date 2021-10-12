@@ -13,15 +13,15 @@ for (const file of commandFiles) {
 }
 
 client.once('ready', () => {
-	console.log(`Ready and logged in as ${client.user.id}`);
+	console.log(`Ready and logged in as ${client.user.id}!`);
 });
 
 client.on('interactionCreate', async interaction => {
-	if (!interaction.isCommand()) return;
+	if(!interaction.isCommand()) return;
 
 	const command = client.commands.get(interaction.commandName);
 
-	if (!command) return;
+	if(!command) return;
 
 	try {
 		await command.execute(interaction);
@@ -32,9 +32,14 @@ client.on('interactionCreate', async interaction => {
 });
 
 client.on('messageCreate', message => {
-	if(message.author.bot) {return;}
-	
-  if (message.content === '!ping') {
+	if(message.author.bot) return;
+
+	if(!message.content.startsWith(process.env.BOT_PREFIX)) return;
+
+	const args = message.content.slice(process.env.BOT_PREFIX).trim().split(/ +/g);
+	const command = args.shift().toLowerCase();
+
+  if(command === 'ping') {
     message.channel.send('pong');
   }
 });

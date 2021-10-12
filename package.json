@@ -4,11 +4,11 @@
   "description": "",
   "main": "iMBot.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "pm2 start deploy-commands.js --no-autorestart && pm2 start iMBot.js && pm2 monit"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Holy-Person",
+  "license": "MIT",
   "dependencies": {
     "@discordjs/builders": "^0.6.0",
     "@discordjs/rest": "^0.1.0-canary.0",
