@@ -1,19 +1,30 @@
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
 require('dotenv').config();
+var messageCommands = new Array();
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
 client.commands = new Collection();
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+const slashCommandFiles = fs.readdirSync('./slashCommands').filter(file => file.endsWith('.js'));
+const messageCommandFiles = fs.readdirSync('./messageCommands').filter(file => file.endsWith('.js'));
 
-for (const file of commandFiles) {
-	const command = require(`./commands/${file}`);
+for (const file of slashCommandFiles) {
+	const command = require(`./slashCommands/${file}`);
 	client.commands.set(command.data.name, command);
 }
 
+for (const file of messageCommandFiles) {
+	const command = require(`./messageCommands/${file}`);
+	let messageCommand = {
+	 "name": file.split('.js')[0],
+	 "module": command
+ 	};
+	messageCommands.push(messageCommand);
+}
+
 client.once('ready', () => {
-	console.log(`Ready and logged in as ${client.user.id}!`);
+	console.log(`Ready and logged in as ${client.user.tag}!`);
 });
 
 client.on('interactionCreate', async interaction => {
@@ -32,16 +43,18 @@ client.on('interactionCreate', async interaction => {
 });
 
 client.on('messageCreate', message => {
-	if(message.author.bot) return;
-
 	if(!message.content.startsWith(process.env.BOT_PREFIX)) return;
 
-	const args = message.content.slice(process.env.BOT_PREFIX).trim().split(/ +/g);
+	if(message.author.bot) return;
+
+	const args = message.content.slice(process.env.BOT_PREFIX.length).trim().split(/ +/g);
 	const command = args.shift().toLowerCase();
 
-  if(command === 'ping') {
-    message.channel.send('pong');
-  }
+	const commandObject = messageCommands.find(x => x.name === command);
+	
+	if(typeof commandObject == 'undefined') return;
+
+	commandObject.module.method(message, args);
 });
 
 client.login(process.env.DISCORD_TOKEN);
