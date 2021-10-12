@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
-require('dotenv').config();
+require('dotenv').config(); //Config contains DISCORD_TOKEN, BOT_PREFIX, GUILD_ID and CLIENT_ID.
 
 const commands = [];
 const commandFiles = fs.readdirSync('./slashCommands').filter(file => file.endsWith('.js'));

@@ -1,19 +1,21 @@
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
-require('dotenv').config();
-var messageCommands = new Array();
+require('dotenv').config(); //Config contains DISCORD_TOKEN, BOT_PREFIX, GUILD_ID and CLIENT_ID.
+var messageCommands = new Array(); //Array of message-based commands.
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+const Bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
-client.commands = new Collection();
+Bot.commands = new Collection();
 const slashCommandFiles = fs.readdirSync('./slashCommands').filter(file => file.endsWith('.js'));
 const messageCommandFiles = fs.readdirSync('./messageCommands').filter(file => file.endsWith('.js'));
 
+//Generate all slash commands and put them in a Discord Collection.
 for (const file of slashCommandFiles) {
 	const command = require(`./slashCommands/${file}`);
-	client.commands.set(command.data.name, command);
+	Bot.commands.set(command.data.name, command);
 }
 
+//Generate all message-based commands and push them into the messageCommands array.
 for (const file of messageCommandFiles) {
 	const command = require(`./messageCommands/${file}`);
 	let messageCommand = {
@@ -23,14 +25,17 @@ for (const file of messageCommandFiles) {
 	messageCommands.push(messageCommand);
 }
 
-client.once('ready', () => {
-	console.log(`Ready and logged in as ${client.user.tag}!`);
+//Notify console once the bot is ready.
+Bot.once('ready', () => {
+	console.log(`Ready and logged in as ${Bot.user.tag}!\nThe current prefix is [${process.env.BOT_PREFIX}].`);
+	Bot.user.setActivity("for the next [[BIG SHOT!!!]]", { type: "WATCHING" });
 });
 
-client.on('interactionCreate', async interaction => {
+//Process slash commands.
+Bot.on('interactionCreate', async interaction => {
 	if(!interaction.isCommand()) return;
 
-	const command = client.commands.get(interaction.commandName);
+	const command = Bot.commands.get(interaction.commandName);
 
 	if(!command) return;
 
@@ -42,19 +47,21 @@ client.on('interactionCreate', async interaction => {
 	}
 });
 
-client.on('messageCreate', message => {
-	if(!message.content.startsWith(process.env.BOT_PREFIX)) return;
+//Process message-based commands.
+Bot.on('messageCreate', message => {
+	if(!message.content.startsWith(process.env.BOT_PREFIX)) return; //Ignore messages that don't start with the prefix.
 
-	if(message.author.bot) return;
+	if(message.author.bot) return; //Ignore messages with bot authors.
 
+	//make string lowercase and split up all args into an array
 	const args = message.content.slice(process.env.BOT_PREFIX.length).trim().split(/ +/g);
 	const command = args.shift().toLowerCase();
 
-	const commandObject = messageCommands.find(x => x.name === command);
-	
-	if(typeof commandObject == 'undefined') return;
+	const commandObject = messageCommands.find(x => x.name === command); //Check if the command exists.
 
-	commandObject.module.method(message, args);
+	if(typeof commandObject == 'undefined') return; //Ignore if the command doesn't exist.
+
+	commandObject.module.method(message, Bot, args); //pass message, botClient and all arguements to the command.
 });
 
-client.login(process.env.DISCORD_TOKEN);
+Bot.login(process.env.DISCORD_TOKEN); //Discord login for bot.
