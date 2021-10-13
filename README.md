@@ -1,5 +1,8 @@
 # iMBot
-[![Discord Shield](https://img.shields.io/discord/762333294201143307?color=7289da&label=Discord&logo=discord&logoColor=white&style=flat-square)](https://discord.gg/invites/JpcBxZv6bF)
+[![Discord](https://img.shields.io/discord/359374635680399363?color=%235865F2&label=Discord&logo=discord&logoColor=%23FFFFFF&style=for-the-badge)](https://discord.gg/JpcBxZv6bF)
+[![GitHub last commit](https://img.shields.io/github/last-commit/Holy-Person/iMBot?style=for-the-badge)](https://github.com/Holy-Person/iMBot)
+[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Holy-Person/iMBot?style=for-the-badge)](https://github.com/Holy-Person/iMBot)
+[![GitHub](https://img.shields.io/github/license/Holy-Person/iMBot?style=for-the-badge)](https://github.com/Holy-Person/iMBot)
 ---
 This is a community bot for the iM Discord server.
 
