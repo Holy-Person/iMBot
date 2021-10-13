@@ -1,5 +1,5 @@
 const { spawn } = require('child_process');
-require('../dotenv').config();
+require('dotenv').config();
 
 module.exports = {
   method: function(message, Bot, args) {
