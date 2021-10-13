@@ -56,7 +56,7 @@ Bot.on('messageCreate', message => {
 
 	if (!message.content.startsWith(process.env.BOT_PREFIX)) return; //Ignore messages that don't start with the prefix.
 
-	//Make string lowercase and split up all args into an array
+	//Make string lowercase and split up all args into an array.
 	const args = message.content.toLowerCase().slice(process.env.BOT_PREFIX.length).trim().split(/ +/g);
 	const commandName = args.shift();
 
