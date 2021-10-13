@@ -16,6 +16,6 @@ module.exports = {
     ls.on('close', (code) => {
       console.log(`child process exited with code ${code}`);
     });
-    return message.channel.send(`I'm rebooting... please wait.`);
+    return message.channel.send(`I'm rebooting... please wait oomfie.`);
   }
 };
