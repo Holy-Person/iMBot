@@ -55,7 +55,7 @@ Bot.on('messageCreate', message => {
 
 	//make string lowercase and split up all args into an array
 	const args = message.content.slice(process.env.BOT_PREFIX.length).trim().split(/ +/g);
-	const command = args.shift().toLowerCase();
+	const command = args.toLowerCase().shift();
 
 	const commandObject = messageCommands.find(x => x.name === command); //Check if the command exists.
 
