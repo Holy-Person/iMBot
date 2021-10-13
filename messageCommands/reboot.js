@@ -1,7 +1,7 @@
 const { spawn } = require('child_process');
 module.exports = {
   method: function(message, Bot, args) {
-    const ls = spawn('pm2 stop all && git pull && npm start', {
+    const ls = spawn('git pull && pm2 start deploy-commands.js --no-autorestart && pm2 restart iMBot.js', {
       shell: true
     });
 
@@ -16,6 +16,6 @@ module.exports = {
     ls.on('close', (code) => {
       console.log(`child process exited with code ${code}`);
     });
-    return message.channel.send(`Test text.`);
+    return message.channel.send(`I'm rebooting... please wait.`);
   }
 };
