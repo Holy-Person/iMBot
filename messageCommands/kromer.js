@@ -10,7 +10,7 @@ module.exports = {
     }
 
     const user = commonFunctions.getUserFromMention(args[1], Bot); // gets user ID from ping
-		if(!user) return;
+		if(!user) return message.channel.send(`Undefined user.`);
     // we save the ID instead of user for the database
 
     const amount = parseFloat(args[2]);

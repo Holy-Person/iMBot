@@ -7,7 +7,7 @@ module.exports = {
         if (mention.startsWith('!')) {
           mention = mention.slice(1);
         }
-      return Bot.users.cache.get(mention);
+      return Bot.users.cache.get(mention); //Returns undefined if user cannot be found.
     }
   }
 }
