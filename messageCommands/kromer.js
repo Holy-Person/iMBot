@@ -9,9 +9,9 @@ module.exports = {
     const user = args[1].split('@!')[1].split('>')[0]; // gets user ID from ping
     // we save the ID instead of user for the database
 
-    if (args[0].toLowerCase() === 'add')
+    if (args[0] === 'add')
       reply = `Added ${args[2]} kromer to ${Bot.users.cache.get(user)}`;
-    else if (args[0].toLowerCase() === 'remove')
+    else if (args[0] === 'remove')
       reply = `Removed ${args[2]} kromer from ${Bot.users.cache.get(user)}`;
     else {
       return message.channel.send('invalid command');
