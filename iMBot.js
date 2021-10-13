@@ -1,6 +1,6 @@
 const fs = require("fs");
 const { Client, Collection, Intents } = require("discord.js");
-const oomfie = require("./messageCommands/oomfie");
+const commonFunctions = require('./commonFunctions.js');
 require("dotenv").config(); //Config contains DISCORD_TOKEN, BOT_PREFIX, GUILD_ID, CLIENT_ID and ADMIN_USERS(array).
 
 let messageCommands = {}; //Object of message-based commands.
