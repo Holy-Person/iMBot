@@ -4,7 +4,8 @@
   "description": "",
   "main": "iMBot.js",
   "scripts": {
-    "start": "pm2 start deploy-commands.js --no-autorestart && pm2 start iMBot.js && pm2 monit"
+    "start": "pm2 start deploy-commands.js --no-autorestart && pm2 start iMBot.js && pm2 monit",
+    "format": "npx prettier --write ."
   },
   "keywords": [],
   "author": "Holy-Person",
