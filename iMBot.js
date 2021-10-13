@@ -54,8 +54,8 @@ Bot.on('messageCreate', message => {
 	if(message.author.bot) return; //Ignore messages with bot authors.
 
 	//make string lowercase and split up all args into an array
-	const args = message.content.slice(process.env.BOT_PREFIX.length).trim().split(/ +/g);
-	const command = args.toLowerCase().shift();
+	const args = message.content.toLowerCase().slice(process.env.BOT_PREFIX.length).trim().split(/ +/g);
+	const command = args.shift();
 
 	const commandObject = messageCommands.find(x => x.name === command); //Check if the command exists.
 
