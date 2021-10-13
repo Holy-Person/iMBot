@@ -1,7 +1,9 @@
 const { spawn } = require('child_process');
 module.exports = {
   method: function(message, Bot, args) {
-    const ls = spawn('ls && ls && ls');
+    const ls = spawn('ls && ls && ls', {
+      shell: true
+    });
 
     ls.stdout.on('data', (data) => {
       console.log(`stdout: ${data}`);
