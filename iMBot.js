@@ -1,5 +1,6 @@
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
+const oomfie = require('./messageCommands/oomfie');
 require('dotenv').config(); //Config contains DISCORD_TOKEN, BOT_PREFIX, GUILD_ID, CLIENT_ID and ADMIN_USERS(array).
 var messageCommands = new Array(); //Array of message-based commands.
 
@@ -49,9 +50,11 @@ Bot.on('interactionCreate', async interaction => {
 
 //Process message-based commands.
 Bot.on('messageCreate', message => {
-	if(!message.content.startsWith(process.env.BOT_PREFIX)) return; //Ignore messages that don't start with the prefix.
-
 	if(message.author.bot) return; //Ignore messages with bot authors.
+
+	messageCommands.find(x => x.name === 'oomfie').module.method(message, Bot); //Checks if message has 'oomfie'.
+
+	if(!message.content.startsWith(process.env.BOT_PREFIX)) return; //Ignore messages that don't start with the prefix.
 
 	//make string lowercase and split up all args into an array
 	const args = message.content.toLowerCase().slice(process.env.BOT_PREFIX.length).trim().split(/ +/g);
