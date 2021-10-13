@@ -1,7 +1,7 @@
 const { spawn } = require('child_process');
 module.exports = {
   method: function(message, Bot, args) {
-    const ls = spawn('ls', ['-lh', '/usr']);
+    const ls = spawn('cd DiscordBots/iMBot && pm2 stop all && npm start');
 
     ls.stdout.on('data', (data) => {
       console.log(`stdout: ${data}`);
