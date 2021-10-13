@@ -1,5 +1,5 @@
 module.exports = {
-  method: function(message, Bot, args) {
-    return message.channel.send(`Pong!`);
-  }
+	method: function (message, _Bot, _args) {
+		return message.channel.send(`Pong!`);
+	}
 };
