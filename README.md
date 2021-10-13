@@ -6,6 +6,16 @@
 ---
 This is a community bot for the iM Discord server.
 
+## Setup
+This bot uses a .env file to store different hidden variables, all of the variable names can be found in the [iMBot.js](https://github.com/Holy-Person/iMBot/blob/main/iMBot.js) file but here is an example .env just in case.
+```dosini
+DISCORD_TOKEN = T0T4LLy.A.R3al_ToK3n
+CLIENT_ID = client_id_here
+GUILD_ID = guild_id_here
+BOT_PREFIX = iM!
+ADMIN_USERS = 330341087099224064, 330341087099224063
+```
+
 ## Adding Commands
 <details>
 <summary><strong>Slash Commands</strong></summary>
