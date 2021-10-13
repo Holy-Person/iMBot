@@ -1,5 +1,3 @@
-var fs = require("fs");
-
 module.exports = {
   method: function (message, _Bot, _args) {
     // const variants = ['oomfie', 'coomfie', 'comfie'];

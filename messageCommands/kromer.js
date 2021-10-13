@@ -1,3 +1,4 @@
+const commonFunctions = require('../commonFunctions.js');
 module.exports = {
   method: function (message, Bot, args) {
     let reply;
@@ -8,7 +9,7 @@ module.exports = {
       );
     }
 
-    const user = args[1].split("@!")[1].split(">")[0]; // gets user ID from ping
+    const user = commonFunctions.getUserFromMention(args[1], Bot); // gets user ID from ping
     // we save the ID instead of user for the database
 
     const amount = parseFloat(args[2]);
@@ -20,9 +21,9 @@ module.exports = {
     // die oomfie gif
 
     if (args[0] === "add") {
-      reply = `Added ${amount} kromer to ${Bot.users.cache.get(user)}`;
+      reply = `Added ${amount} kromer to ${user}`;
     } else if (args[0] === "remove") {
-      reply = `Removed ${amount} kromer from ${Bot.users.cache.get(user)}`;
+      reply = `Removed ${amount} kromer from ${user}`;
     } else {
       return message.channel.send("invalid command");
       // here we return directly to stop
