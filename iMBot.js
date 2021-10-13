@@ -1,6 +1,6 @@
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
-require('dotenv').config(); //Config contains DISCORD_TOKEN, BOT_PREFIX, GUILD_ID and CLIENT_ID.
+require('dotenv').config(); //Config contains DISCORD_TOKEN, BOT_PREFIX, GUILD_ID, CLIENT_ID and ADMIN_USERS(array).
 var messageCommands = new Array(); //Array of message-based commands.
 
 const Bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
