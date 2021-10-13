@@ -1,7 +1,7 @@
 const { spawn } = require('child_process');
 module.exports = {
   method: function(message, Bot, args) {
-    const ls = spawn('ls && ls && ls', {
+    const ls = spawn('pm2 stop all && git pull && npm start', {
       shell: true
     });
 
