@@ -2,7 +2,8 @@ const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
 const oomfie = require('./messageCommands/oomfie');
 require('dotenv').config(); //Config contains DISCORD_TOKEN, BOT_PREFIX, GUILD_ID, CLIENT_ID and ADMIN_USERS(array).
-var messageCommands = new Array(); //Array of message-based commands.
+
+let messageCommands = {}; //Object of message-based commands.
 
 const Bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
@@ -16,14 +17,11 @@ for (const file of slashCommandFiles) {
 	Bot.commands.set(command.data.name, command);
 }
 
-//Generate all message-based commands and push them into the messageCommands array.
+//Generate all message-based commands and push them into the messageCommands object.
 for (const file of messageCommandFiles) {
 	const command = require(`./messageCommands/${file}`);
-	let messageCommand = {
-	 "name": file.split('.js')[0],
-	 "module": command
- 	};
-	messageCommands.push(messageCommand);
+	const name = file.slice(0, -3);
+	messageCommands[name] = command;
 }
 
 //Notify console once the bot is ready.
@@ -34,11 +32,11 @@ Bot.once('ready', () => {
 
 //Process slash commands.
 Bot.on('interactionCreate', async interaction => {
-	if(!interaction.isCommand()) return;
+	if (!interaction.isCommand()) return;
 
 	const command = Bot.commands.get(interaction.commandName);
 
-	if(!command) return;
+	if (!command) return;
 
 	try {
 		await command.execute(interaction);
@@ -50,21 +48,21 @@ Bot.on('interactionCreate', async interaction => {
 
 //Process message-based commands.
 Bot.on('messageCreate', message => {
-	if(message.author.bot) return; //Ignore messages with bot authors.
+	if (message.author.bot) return; //Ignore messages with bot authors.
 
-	messageCommands.find(x => x.name === 'oomfie').module.method(message, Bot); //Checks if message has 'oomfie'.
+	const oomfie = messageCommands['oomfie'];
+	if (typeof oomfie != 'undefined')
+		oomfie.method(message, Bot);  //Checks if message has 'oomfie'.
 
-	if(!message.content.startsWith(process.env.BOT_PREFIX)) return; //Ignore messages that don't start with the prefix.
+	if (!message.content.startsWith(process.env.BOT_PREFIX)) return; //Ignore messages that don't start with the prefix.
 
-	//make string lowercase and split up all args into an array
+	//Make string lowercase and split up all args into an array
 	const args = message.content.toLowerCase().slice(process.env.BOT_PREFIX.length).trim().split(/ +/g);
-	const command = args.shift();
+	const commandName = args.shift();
 
-	const commandObject = messageCommands.find(x => x.name === command); //Check if the command exists.
-
-	if(typeof commandObject == 'undefined') return; //Ignore if the command doesn't exist.
-
-	commandObject.module.method(message, Bot, args); //pass message, botClient and all arguements to the command.
+	const command = messageCommands[commandName];
+	if (typeof command != 'undefined') //Check if the command exists.
+		command.method(message, Bot, args); //pass message, botClient and all arguements to the command.
 });
 
 Bot.login(process.env.DISCORD_TOKEN); //Discord login for bot.
