@@ -8,12 +8,18 @@ module.exports = {
 
 		const user = args[1].split('@!')[1].split('>')[0]; // gets user ID from ping
 		// we save the ID instead of user for the database
+		
+		const amount = parseFloat(args[2]);
+
+		if (isNaN(amount)) 
+			return message.channel.send('https://tenor.com/view/oomfie-twitter-mya-birdy-moots-gif-21657254');
+		// die oomfie gif
 
 		if (args[0] === 'add') {
-			reply = `Added ${args[2]} kromer to ${Bot.users.cache.get(user)}`;
+			reply = `Added ${amount} kromer to ${Bot.users.cache.get(user)}`;
 		}
 		else if (args[0] === 'remove') {
-			reply = `Removed ${args[2]} kromer from ${Bot.users.cache.get(user)}`;
+			reply = `Removed ${amount} kromer from ${Bot.users.cache.get(user)}`;
 		}
 		else {
 			return message.channel.send('invalid command');
