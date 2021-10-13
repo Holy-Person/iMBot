@@ -4,7 +4,7 @@ module.exports = {
 	method: function (message, _Bot) {
 		// const variants = ['oomfie', 'coomfie', 'comfie'];
 		// better than trying a bunch of variants like above
-		if (message.content.includes('mfie')) {
+		if (message.content.toLowerCase().includes('mfie')) {
 			let reply;
 			if (Math.floor(Math.random() * 50) == 0) {
 				fs.readFile('oomfie.txt', function (err, data) {
