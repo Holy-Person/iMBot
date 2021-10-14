@@ -10,7 +10,7 @@ module.exports = {
     }
 
     const reboot = spawn(
-      "sudo git pull && pm2 start deploy-commands.js --no-autorestart && pm2 restart iMBot.js",
+      "sudo git pull origin canary && pm2 start deploy-commands.js --no-autorestart && pm2 restart iMBot.js",
       {
         shell: true,
       }
@@ -22,5 +22,5 @@ module.exports = {
       );
     });
     return message.channel.send(`I'm rebooting... please wait.`);
-  },
+  }
 };

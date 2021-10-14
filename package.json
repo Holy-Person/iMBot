@@ -4,8 +4,7 @@
   "description": "",
   "main": "iMBot.js",
   "scripts": {
-    "start": "pm2 start deploy-commands.js --no-autorestart && pm2 start iMBot.js && pm2 monit",
-    "format": "npx prettier --write ."
+    "start": "pm2 start deploy-commands.js --no-autorestart && pm2 start iMBot.js && pm2 monit"
   },
   "keywords": [],
   "author": "Holy-Person",
@@ -17,8 +16,5 @@
     "discord.js": "^13.2.0",
     "dotenv": "^10.0.0",
     "rest": "^2.0.0"
-  },
-  "devDependencies": {
-    "eslint": "^8.0.0"
   }
 }
