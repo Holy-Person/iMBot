@@ -2,8 +2,8 @@ const fs = require("fs");
 
 module.exports = {
   description: `Lists all help commands.`,
-  method: function (message, _Bot, _args) {
-    /*const messageCommandFiles = fs
+  method: function (message, _Bot, args) {
+    const messageCommandFiles = fs
       .readdirSync("./messageCommands")
       .filter((file) => file.endsWith(".js"));
 
@@ -13,9 +13,11 @@ module.exports = {
       const command = require(`../messageCommands/${file}`);
       const name = file.slice(0, -3);
       messageCommands[name] = command;
-    }*/
-
-    return message.channel.send(module.exports.description);
+    }
+    if(args) {
+      return message.channel.send(messageCommands[args].description);
+    }
+    return message.channel.send(`Missing arguements.`);
   }
 };
 
