@@ -1,6 +1,7 @@
 const fs = require("fs");
 const { Client, Collection, Intents } = require("discord.js");
 const _commonFunctions = require('./commonFunctions.js');
+const sqlite = require('sqlite3');
 require("dotenv").config(); //Config contains DISCORD_TOKEN, BOT_PREFIX, GUILD_ID, CLIENT_ID and ADMIN_USERS(array).
 
 let messageCommands = {}; //Object of message-based commands.
@@ -36,6 +37,7 @@ Bot.once("ready", () => {
     `Ready and logged in as ${Bot.user.tag}!\nThe current prefix is [${process.env.BOT_PREFIX}].`
   );
   Bot.user.setActivity("for the next [[BIG SHOT!!!]]", { type: "WATCHING" });
+  let db = new sqlite.Database('kromer.db', sqlite.OPEN_READWRITE | sqlite.OPEN_CREATE);
 });
 
 //Process slash commands.
