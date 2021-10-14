@@ -3,13 +3,13 @@ const { MessageEmbed } = require('discord.js');
 require("dotenv").config();
 
 const messageCommandFiles = fs
-  .readdirSync("../messageCommands")
+  .readdirSync("./messageCommands")
   .filter((file) => file.endsWith(".js"));
 
 var messageCommands = new Array();
 
 for (const file of messageCommandFiles) {
-  const command = require(`../messageCommands/${file}`);
+  const command = require(`./messageCommands/${file}`);
   const {
     name: name = file.split('.js')[0],
     description: description = "No description provided.",
