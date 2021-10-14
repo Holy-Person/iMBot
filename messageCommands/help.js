@@ -19,7 +19,7 @@ module.exports = {
     if(messageCommands[args]) {
       const CommandEmbed = new MessageEmbed()
         .setColor('#484C92')
-        .setTitle(args[1])
+        .setTitle(args[0])
         .addField("Description" , messageCommands[args].description)
         .setTimestamp();
       return message.channel.send({ embeds: [CommandEmbed] });
