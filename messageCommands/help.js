@@ -10,17 +10,23 @@ var messageCommands = new Array();
 
 for (const file of messageCommandFiles) {
   const command = require(`../messageCommands/${file}`);
+  console.log(command.name, command.description, command.usage);
   const {
     name: name = file.split('.js')[0],
     description: description = "No description provided.",
     usage: usage = "No usage provided."
   } = command;
 
+  console.log(name, description, usage);
+
   let messageCommand = {
     "name": name,
     "description": description,
     "usage": usage
   };
+
+  console.log(messageCommand.name, messageCommand.description, messageCommand.usage);
+
 	messageCommands.push(messageCommand);
 }
 
@@ -33,10 +39,11 @@ module.exports = {
   usage: `Usage \`${process.env.BOT_PREFIX}help [command name]\`.`,
   method: function (message, _Bot, args) {
     const commandObject = messageCommands.find(x => x.name === args[0]);
+    console.log(args[0], commandObject, commandObject.description);
     if(commandObject) {
       const CommandEmbed = new MessageEmbed()
         .setTitle(args[0])
-        .addField("Description" , `test: `+commandObject.description);
+        .addField("Description" , commandObject.description);
       CommandEmbed.setColor('#484C92');
       return message.channel.send({ embeds: [CommandEmbed] });
     }
