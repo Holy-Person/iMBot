@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js');
 require("dotenv").config();
 
 const messageCommandFiles = fs
-  .readdirSync("./messageCommands")
+  .readdirSync("../messageCommands")
   .filter((file) => file.endsWith(".js"));
 
 var messageCommands = new Array();
@@ -12,8 +12,8 @@ for (const file of messageCommandFiles) {
   const command = require(`../messageCommands/${file}`);
   const {
     name: name = file.split('.js')[0],
-    description: description = "foo",
-    usage: usage = "bar"
+    description: description = "No description provided.",
+    usage: usage = "No usage provided."
   } = command;
 
   let messageCommand = {
@@ -36,7 +36,7 @@ module.exports = {
     if(commandObject) {
       const CommandEmbed = new MessageEmbed()
         .setTitle(args[0])
-        .addField("Description" , `test: `+commandObject.description);
+        .addField("Description" , `test: `+commandObject.module.description);
       CommandEmbed.setColor('#484C92');
       return message.channel.send({ embeds: [CommandEmbed] });
     }
