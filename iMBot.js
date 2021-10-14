@@ -38,6 +38,7 @@ Bot.once("ready", () => {
   );
   Bot.user.setActivity("for the next [[BIG SHOT!!!]]", { type: "WATCHING" });
   let db = new sqlite.Database('kromer.db', sqlite.OPEN_READWRITE | sqlite.OPEN_CREATE);
+  db.run('CREATE TABLE IF NOT EXISTS kromer(userid INTEGER NOT NULL, amount INTEGER NOT NULL)');
 });
 
 //Process slash commands.
