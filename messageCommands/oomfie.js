@@ -13,7 +13,7 @@ module.exports = {
         return message.channel.send("so true oomfie");
       }
     }
-  },
+  }
 };
 
 const gifs = [

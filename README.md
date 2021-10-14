@@ -38,7 +38,7 @@ module.exports = {
   async execute(interaction) {
     //Command function here, example with pong below.
     return interaction.reply("Pong!");
-  },
+  }
 };
 ```
 
@@ -55,7 +55,7 @@ module.exports = {
   method: function (message, Bot, args) {
     //Command function here, example with pong below.
     return message.channel.send(`Pong!`);
-  },
+  }
 };
 ```
 
