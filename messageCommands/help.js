@@ -6,30 +6,7 @@ const messageCommandFiles = fs
   .readdirSync("./messageCommands")
   .filter((file) => file.endsWith(".js"));
 
-var messageCommands = new Array();
-
-for (const file of messageCommandFiles) {
-  const command = require(`../messageCommands/${file}`);
-  console.log(command);
-  console.log(command.name, command.description, command.usage, command.method);
-  const {
-    name: name = file.split('.js')[0],
-    description: description = "No description provided.",
-    usage: usage = "No usage provided."
-  } = command;
-
-  console.log(name, description, usage);
-
-  let messageCommand = {
-    "name": name,
-    "description": description,
-    "usage": usage
-  };
-
-  console.log(messageCommand.name, messageCommand.description, messageCommand.usage);
-
-	messageCommands.push(messageCommand);
-}
+const messageCommands = new Array();
 
 /*messageCommands.sort(function(a, b){
     return a.name - b.name;
@@ -39,6 +16,29 @@ module.exports = {
   description: `Shows general help for a given command.`,
   usage: `Usage \`${process.env.BOT_PREFIX}help [command name]\`.`,
   method: function (message, _Bot, args) {
+    for (const file of messageCommandFiles) {
+      const command = require(`../messageCommands/${file}`);
+      console.log(command);
+      console.log(command.name, command.description, command.usage, command.method);
+      const {
+        name: name = file.split('.js')[0],
+        description: description = "No description provided.",
+        usage: usage = "No usage provided."
+      } = command;
+
+      console.log(name, description, usage);
+
+      let messageCommand = {
+        "name": name,
+        "description": description,
+        "usage": usage
+      };
+
+      console.log(messageCommand.name, messageCommand.description, messageCommand.usage);
+
+    	messageCommands.push(messageCommand);
+    }
+    
     const commandObject = messageCommands.find(x => x.name === args[0]);
     console.log(args[0], commandObject, commandObject.description);
     if(typeof commandObject != 'undefined') {
