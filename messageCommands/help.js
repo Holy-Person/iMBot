@@ -1,4 +1,5 @@
 const fs = require("fs");
+const { Discord } = require("discord.js");
 
 module.exports = {
   description: `Lists all help commands.`,
@@ -14,10 +15,15 @@ module.exports = {
       const name = file.slice(0, -3);
       messageCommands[name] = command;
     }
-    if(args) {
+    if(messageCommands[args]) {
       return message.channel.send(messageCommands[args].description);
     }
-    return message.channel.send(`Missing arguements.`);
+    const HelpEmbed = new Discord.RichEmbed()
+      HelpEmbed.setColor('#484C92');
+      HelpEmbed.setTitle(`Title1`);
+      HelpEmbed.addField("Field2_1" , `Field2_2`);
+      HelpEmbed.setTimestamp();
+    return message.channel.send(HelpEmbed);
   }
 };
 
