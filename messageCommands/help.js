@@ -11,7 +11,7 @@ var messageCommands = new Array();
 for (const file of messageCommandFiles) {
   const command = require(`../messageCommands/${file}`);
   console.log(command);
-  console.log(command.name, command.description, command.usage);
+  console.log(command.name, command.description, command.usage, command.method);
   const {
     name: name = file.split('.js')[0],
     description: description = "No description provided.",
