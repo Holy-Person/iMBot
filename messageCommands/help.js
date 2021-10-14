@@ -10,11 +10,12 @@ var messageCommands = new Array();
 
 for (const file of messageCommandFiles) {
   const command = require(`../messageCommands/${file}`);
-  console.log(command.module.name, command.module.description, command.module.usage);
+  console.log(command);
+  console.log(command.name, command.description, command.usage);
   const {
-    module.name: name = file.split('.js')[0],
-    module.description: description = "No description provided.",
-    module.usage: usage = "No usage provided."
+    name: name = file.split('.js')[0],
+    description: description = "No description provided.",
+    usage: usage = "No usage provided."
   } = command;
 
   console.log(name, description, usage);
@@ -40,7 +41,7 @@ module.exports = {
   method: function (message, _Bot, args) {
     const commandObject = messageCommands.find(x => x.name === args[0]);
     console.log(args[0], commandObject, commandObject.description);
-    if(commandObject) {
+    if(typeof commandObject != 'undefined') {
       const CommandEmbed = new MessageEmbed()
         .setTitle(args[0])
         .addField("Description" , commandObject.description);
