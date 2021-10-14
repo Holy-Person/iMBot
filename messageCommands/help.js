@@ -36,7 +36,7 @@ module.exports = {
     if(commandObject) {
       const CommandEmbed = new MessageEmbed()
         .setTitle(args[0])
-        .addField("Description" , `test: `+commandObject.module.description);
+        .addField("Description" , `test: `+commandObject.description);
       CommandEmbed.setColor('#484C92');
       return message.channel.send({ embeds: [CommandEmbed] });
     }
