@@ -10,10 +10,16 @@ var messageCommands = new Array();
 
 for (const file of messageCommandFiles) {
   const command = require(`../messageCommands/${file}`);
+  const {
+    name: name = file.split('.js')[0],
+    description: description = "foo",
+    usage: usage = "bar"
+  } = command;
+
   let messageCommand = {
-    "name": file.split('.js')[0],
-    "description": command.description,
-    "usage": command.usage
+    "name": name,
+    "description": description,
+    "usage": usage
   };
 	messageCommands.push(messageCommand);
 }
@@ -30,7 +36,7 @@ module.exports = {
     if(commandObject) {
       const CommandEmbed = new MessageEmbed()
         .setTitle(args[0])
-        .addField("Description" , commandObject.description);
+        .addField("Description" , `test: `+commandObject.description);
       CommandEmbed.setColor('#484C92');
       return message.channel.send({ embeds: [CommandEmbed] });
     }
