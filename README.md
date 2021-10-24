@@ -11,14 +11,26 @@ This is a community bot for the iM Discord server.
 
 ## Setup
 
-This bot uses a .env file to store different hidden variables, all of the variable names can be found in the [iMBot.js](https://github.com/Holy-Person/iMBot/blob/main/iMBot.js) file but here is an example .env just in case.
+This bot uses a config.json file to store important information.<br>
+Here is an example config.
 
-```dosini
-DISCORD_TOKEN = T0T4LLy.A.R3al_ToK3n
-CLIENT_ID = client_id_here
-GUILD_ID = guild_id_here
-BOT_PREFIX = iM!
-ADMIN_USERS = 330341087099224064, 330341087099224063
+```json
+{
+	"clientID": 111111111111111111,
+	"guildID": 111111111111111111,
+	"prefix": "iM!",
+	"token": "T0T4LLy.A.R3al_ToK3n",
+	"userID": {
+		"botDevs": [
+      330341087099224064,
+      330341087099224063
+    ],
+    "discordMods": [
+      330341087099224064,
+      330341087099224063
+    ]
+	}
+}
 ```
 
 ## Adding Commands
@@ -51,8 +63,12 @@ To add a new command, add a new .js file in the `messageCommands` folder, please
 Name your file the way you want the command to be named.
 
 ```js
+const Config = require('./config.json');
+
 module.exports = {
-  method: function (message, Bot, args) {
+  description: `Sends back "Pong!".`, //Description and usage for the help command.
+  usage: `Usage \`${Config.prefix}ping\`.`,
+  method: function (message, _Bot, _args) { //Variables with _ are not being used at the moment.
     //Command function here, example with pong below.
     return message.channel.send(`Pong!`);
   }

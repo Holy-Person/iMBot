@@ -1,6 +1,6 @@
 const fs = require("fs");
 const { MessageEmbed } = require('discord.js');
-require("dotenv").config();
+const Config = require('./config.json');
 
 const messageCommandFiles = fs
   .readdirSync("./messageCommands")
@@ -10,7 +10,7 @@ const messageCommands = new Array();
 
 module.exports = {
   description: `Shows general help for a given command.`,
-  usage: `Usage \`${process.env.BOT_PREFIX}help [command name]\`.`,
+  usage: `Usage \`${Config.prefix}help [command name]\`.`,
   method: function (message, _Bot, args) {
     for (const file of messageCommandFiles) {
       const command = require(`../messageCommands/${file}`);

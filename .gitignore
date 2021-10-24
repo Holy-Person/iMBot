@@ -105,3 +105,6 @@ dist
 
 # Custom scripts
 *.sh
+
+# Config Files
+config.json
