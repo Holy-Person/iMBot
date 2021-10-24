@@ -36,7 +36,7 @@ module.exports = {
     const commandObject = messageCommands.find(x => x.name === args[0]);
     if(typeof commandObject != 'undefined') {
       const CommandEmbed = new MessageEmbed()
-        .setColor('#484C92');
+        .setColor('#484C92')
         .setTitle(args[0])
         .addField("Description", commandObject.description);
         .addField("Usage", commandObject.usage);
