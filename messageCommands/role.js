@@ -1,4 +1,4 @@
-const Config = require('./config.json');
+const Config = require('../config.json');
 
 module.exports = {
   description: `Lets users assign and remove roles on themselves.`,

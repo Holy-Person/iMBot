@@ -1,6 +1,6 @@
 const fs = require("fs");
 const { MessageEmbed } = require('discord.js');
-const Config = require('./config.json');
+const Config = require('../config.json');
 
 const messageCommandFiles = fs
   .readdirSync("./messageCommands")

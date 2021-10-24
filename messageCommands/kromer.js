@@ -1,4 +1,4 @@
-const Config = require('./config.json');
+const Config = require('../config.json');
 const commonFunctions = require('../commonFunctions.js');
 
 module.exports = {

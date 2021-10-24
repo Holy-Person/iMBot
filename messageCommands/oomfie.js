@@ -1,4 +1,4 @@
-const Config = require('./config.json');
+const Config = require('../config.json');
 
 module.exports = {
   description: `Oomfie".`, //Description and usage for the help command.

@@ -63,7 +63,7 @@ To add a new command, add a new .js file in the `messageCommands` folder, please
 Name your file the way you want the command to be named.
 
 ```js
-const Config = require('./config.json');
+const Config = require('../config.json');
 
 module.exports = {
   description: `Sends back "Pong!".`, //Description and usage for the help command.

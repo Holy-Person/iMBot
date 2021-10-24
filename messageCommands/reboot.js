@@ -1,5 +1,5 @@
 const { spawn } = require("child_process");
-const Config = require('./config.json');
+const Config = require('../config.json');
 
 module.exports = {
   description: `Reboots the bot pulls the newest code from the canary branch.`,
