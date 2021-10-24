@@ -8,10 +8,6 @@ const messageCommandFiles = fs
 
 const messageCommands = new Array();
 
-/*messageCommands.sort(function(a, b){
-    return a.name - b.name;
-});*/ //Use sorting for paging
-
 module.exports = {
   description: `Shows general help for a given command.`,
   usage: `Usage \`${process.env.BOT_PREFIX}help [command name]\`.`,
@@ -31,7 +27,11 @@ module.exports = {
       };
 
     	messageCommands.push(messageCommand);
-    } //There's probably 50000 ways to do this more optimized but I'm at my limit for today.
+    }
+
+    /*messageCommands.sort(function(a, b){
+      return a.name - b.name;
+    });*/
 
     const commandObject = messageCommands.find(x => x.name === args[0]);
     if(typeof commandObject != 'undefined') {
