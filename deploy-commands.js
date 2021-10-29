@@ -13,7 +13,7 @@ for (const file of commandFiles) {
   commands.push(command.data.toJSON());
 }
 
-const rest = new REST({ version: "9" }).setToken(Config.prefix);
+const rest = new REST({ version: "9" }).setToken(Config.token);
 
 rest
   .put(

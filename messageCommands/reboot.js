@@ -5,7 +5,7 @@ module.exports = {
   description: `Reboots the bot pulls the newest code from the canary branch.`,
   usage: `Usage \`${Config.prefix}reboot\`.`,
   method: function (message, _Bot, _args) {
-    if (!Config.botDevs.split(",").includes(message.author.id)) {
+    if (!Config.userID.botDevs.split(",").includes(message.author.id)) {
       return message.channel.send(
         `Sorry ${message.author.username}, you're not allowed to use that command.`
       );
