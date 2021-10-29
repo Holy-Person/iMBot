@@ -6,7 +6,7 @@ module.exports = {
   method: function (message, _Bot, args) {
 
     const foundRoleObject = Config.selfRoles.find(x => x.name.toLowerCase() === args[0]);
-    if (typeof foundRole == 'undefined') {
+    if (typeof foundRoleObject == 'undefined') {
       return message.channel.send(`Sorry, I couldn't find that role.`);
     }
     const foundRole = message.guild.roles.cache.find(role => role.id === foundRoleObject.id);
