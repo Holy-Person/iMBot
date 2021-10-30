@@ -3,7 +3,7 @@ const Config = require('../config.json');
 
 module.exports = {
   description: `Reboots the bot pulls the newest code from the canary branch.`,
-  usage: `Usage \`${Config.prefix}reboot\`.`,
+  usage: `\`${Config.prefix}reboot\`.`,
   method: function (message, _Bot, _args) {
     if (!Config.userID.botDevs.find(u => u == message.author.id) ) {
       return message.channel.send(

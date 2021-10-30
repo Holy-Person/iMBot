@@ -1,7 +1,7 @@
 const Config = require('../config.json');
 
 module.exports = {
-  description: `Oomfie".`, //Description and usage for the help command.
+  description: `Oomfie.`, //Description and usage for the help command.
   usage: `Oomfie.`,
   method: function (message, _Bot, _args) {
     // const variants = ['oomfie', 'coomfie', 'comfie'];

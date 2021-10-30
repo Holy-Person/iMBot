@@ -3,7 +3,7 @@ const commonFunctions = require('../commonFunctions.js');
 
 module.exports = {
   description: `Lets users assign and remove roles on themselves.`,
-  usage: `Usage \`${Config.prefix}kromer [add/remove] [user ping] [amount of kromer]\`.`,
+  usage: `\`${Config.prefix}kromer [add/remove] [user ping] [amount of kromer]\`.`,
   method: function (message, Bot, args) {
     let reply;
 

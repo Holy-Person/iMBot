@@ -43,7 +43,8 @@ module.exports = {
       return message.channel.send({ embeds: [CommandEmbed] });
     }
     const HelpEmbed = new MessageEmbed()
-      .setTitle(`Command List`);
+      .setTitle(`Command List`)
+      .addField('Coming Soon', 'Soon means soon, give it some time.');
     HelpEmbed.setColor('#484C92');//This also works btw, use for filling pages.
     return message.channel.send({ embeds: [HelpEmbed] });
   }
