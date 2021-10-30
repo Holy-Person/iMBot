@@ -5,7 +5,7 @@ module.exports = {
   usage: `Usage \`${Config.prefix}role\`.`,
   method: function (message, _Bot, args) {
 
-    if (args[0]) {
+    if (!args[0]) {
       return message.channel.send(`Default help text due to no args`);
     }
 
