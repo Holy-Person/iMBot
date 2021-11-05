@@ -11,7 +11,7 @@ module.exports = {
         .setColor('#484C92')
         .setTitle(`Available Selfroles`);
       Config.selfRoles.forEach((role, i) => {
-        ListEmbed.addField(``, `<@&${role.id}> - ${role.name}`);
+        ListEmbed.addField(`<@&${role.id}> - ${role.name}`);
       });
       return message.channel.send(`Please provide a role name you want to add/remove.\nUsage: ${Config.prefix}role [roleName]\n`+ListEmbed);
       //This is a very temporary solution.
