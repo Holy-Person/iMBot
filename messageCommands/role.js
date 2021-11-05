@@ -13,7 +13,8 @@ module.exports = {
       Config.selfRoles.forEach((role, i) => {
         ListEmbed.addField(`<@&${role.id}> - ${role.name}`);
       });
-      return message.channel.send(`Please provide a role name you want to add/remove.\nUsage: ${Config.prefix}role [roleName]\n`+ListEmbed);
+      return message.channel.send(ListEmbed);
+      //`Please provide a role name you want to add/remove.\nUsage: ${Config.prefix}role [roleName]\n`+
       //This is a very temporary solution.
     }
 
