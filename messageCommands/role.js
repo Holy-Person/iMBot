@@ -11,7 +11,7 @@ module.exports = {
         .setColor('#484C92')
         .setTitle(`Available Selfroles`);
       Config.selfRoles.forEach((role, i) => {
-        ListEmbed.addField(`header here`, `<@&${role.id}> - ${role.name}`);
+        ListEmbed.addField(`header here`, `gaming`);
       });
       return message.channel.send(ListEmbed);
       //This is a very temporary solution.
