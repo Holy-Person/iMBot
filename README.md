@@ -9,10 +9,17 @@
 
 This is a community bot for the iM Discord server.
 
+## Stuff We Use
+
+- **Node.js** v16.11.0
+- **discord.js** v13.2.0
+- **npm** v8.0.0
+- **pm2** v5.1.2
+
 ## Setup
 
 This bot uses a config.json file to store important information.<br>
-Here is an example config.
+Here is an example config you can copy.
 
 ```json
 {
@@ -83,7 +90,7 @@ const Config = require('../config.json');
 
 module.exports = {
   description: `Sends back "Pong!".`, //Description and usage for the help command.
-  usage: `Usage \`${Config.prefix}ping\`.`,
+  usage: `\`${Config.prefix}ping\`.`,
   method: function (message, _Bot, _args) { //Variables with _ are not being used at the moment.
     //Command function here, example with pong below.
     return message.channel.send(`Pong!`);
@@ -92,6 +99,20 @@ module.exports = {
 ```
 
 </details>
+
+## Branches
+- [main](https://github.com/Holy-Person/iMBot/tree/main)
+ - The default branch.
+ - Great to fork your own bot from.
+ - Recommended if you want a nice template to start from.
+- [canary](https://github.com/Holy-Person/iMBot/tree/canary)
+ - The experimental branch.
+ - This is where we test new/unfinished things before merging them into [main](https://github.com/Holy-Person/iMBot/tree/main).
+ - Usually safe to fork for your own bot.
+ - Recommended if you want the most up-to-date experience.
+- [kromer rework](https://github.com/Holy-Person/iMBot/tree/kromer-rework)
+ - Old currency test branch.
+ - Will probably get removed soon.
 
 ## License
 
