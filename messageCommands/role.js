@@ -6,7 +6,14 @@ module.exports = {
   method: function (message, _Bot, args) {
 
     if (!args[0]) {
-      return message.channel.send(`Please provide a role name you want to add/remove.\nUsage: ${Config.prefix}role [roleName]`);
+      const ListEmbed = new MessageEmbed()
+        .setColor('#484C92')
+        .setTitle(`Available Selfroles`);
+      Config.selfRoles.forEach((role, i) => {
+        ListEmbed.addField(``, `<@&${role.id}> - ${role.name}`);
+      });
+      return message.channel.send(`Please provide a role name you want to add/remove.\nUsage: ${Config.prefix}role [roleName]\n`+ListEmbed);
+      //This is a very temporary solution.
     }
 
     const foundRoleObject = Config.selfRoles.find(x => x.name.toLowerCase() === args[0]);
@@ -23,7 +30,7 @@ module.exports = {
       message.member.roles.remove(foundRole.id); //message.member gets a member instead of a user, members are unique to guilds while users aren't. ex: message.author
       return message.channel.send(`Removed the "${foundRole.name}" role.`);
     } else {
-      if (foundRoleObject.blockedUsers.includes(message.author.id) ) {
+      if (foundRoleObject.blockedUsers.includes(message.author.id) ) { //You can block certain users from obtaining a role via their UserID in the config. This will only stop them from getting the role, not removing it.
         return message.channel.send(`Sorry, you are currently not eligible to recieve this role.`);
       }
       message.member.roles.add(foundRole.id);
