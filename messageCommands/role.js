@@ -1,4 +1,5 @@
 const Config = require('../config.json');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = {
   description: `Lets users assign and remove roles on themselves.`,
