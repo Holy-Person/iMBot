@@ -9,8 +9,9 @@ module.exports = {
     if (!args[0]) {
       const ListEmbed = new MessageEmbed()
         .setColor('#484C92')
-        .setTitle(`Available Selfroles`);
-      for (const role of Config.selfRoles) {
+        .setTitle(`Available Selfroles`)
+        .addField(`header here temp`, `temp`);
+      for (let role of Config.selfRoles) {
         ListEmbed.addField(`header here`, `<@&${role.id}> - ${role.name}`);
       };
       return message.channel.send(`Please provide a role name you want to add/remove.\nUsage: ${Config.prefix}role [roleName]\n`+ListEmbed);
