@@ -11,7 +11,7 @@ module.exports = {
         .setColor('#484C92')
         .setTitle(`Available Selfroles`)
         .addField(`header here temp`, `temp`);
-      return message.channel.send(ListEmbed);
+      return message.channel.send({ embeds: [CommandEmbed] });
       //This is a very temporary solution.
     }
 
