@@ -1,7 +1,7 @@
 const fs = require("fs");
 const { Client, Collection, Intents } = require("discord.js");
 const _commonFunctions = require('./commonFunctions.js');
-require("dotenv").config(); //Config contains DISCORD_TOKEN, BOT_PREFIX, GUILD_ID, CLIENT_ID and ADMIN_USERS(array).
+const Config = require('./config.json'); //Details on config structure in README.md.
 
 let messageCommands = {}; //Object of message-based commands.
 
@@ -33,7 +33,7 @@ for (const file of messageCommandFiles) {
 //Notify console once the bot is ready.
 Bot.once("ready", () => {
   console.log(
-    `Ready and logged in as ${Bot.user.tag}!\nThe current prefix is [${process.env.BOT_PREFIX}].`
+    `Ready and logged in as ${Bot.user.tag}!\nThe current prefix is [${Config.prefix}].`
   );
   Bot.user.setActivity("for the next [[BIG SHOT!!!]]", { type: "WATCHING" });
 });
@@ -64,12 +64,12 @@ Bot.on("messageCreate", (message) => {
   const oomfie = messageCommands["oomfie"];
   if (typeof oomfie != "undefined") oomfie.method(message, Bot); //Checks if message has 'oomfie'.
 
-  if (!message.content.startsWith(process.env.BOT_PREFIX)) return; //Ignore messages that don't start with the prefix.
+  if (!message.content.startsWith(Config.prefix)) return; //Ignore messages that don't start with the prefix.
 
   //Make string lowercase and split up all args into an array.
   const args = message.content
     .toLowerCase()
-    .slice(process.env.BOT_PREFIX.length)
+    .slice(Config.prefix.length)
     .trim()
     .split(/ +/g);
   const commandName = args.shift();
@@ -80,4 +80,4 @@ Bot.on("messageCreate", (message) => {
     command.method(message, Bot, args); //pass message, botClient and all arguements to the command.
 });
 
-Bot.login(process.env.DISCORD_TOKEN); //Discord login for bot.
+Bot.login(Config.token); //Discord login for bot.

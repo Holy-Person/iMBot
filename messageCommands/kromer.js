@@ -1,5 +1,9 @@
+const Config = require('../config.json');
 const commonFunctions = require('../commonFunctions.js');
+
 module.exports = {
+  description: `Lets users assign and remove roles on themselves.`,
+  usage: `\`${Config.prefix}kromer [add/remove] [user ping] [amount of kromer]\`.`,
   method: function (message, Bot, args) {
     let reply;
 
@@ -32,5 +36,5 @@ module.exports = {
     }
 
     return message.channel.send(reply);
-  },
+  }
 };
