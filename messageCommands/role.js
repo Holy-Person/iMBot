@@ -11,7 +11,7 @@ module.exports = {
         .setColor('#484C92')
         .setTitle(`Available Selfroles`);
       for (const role of Config.selfRoles) {
-        ListEmbed.addField(`\u200B`, `<@&${role.id}> - ${role.name}`);
+        ListEmbed.addField(`${role.name}`, `<@&${role.id}>`);
       };
       return message.channel.send({ embeds: [ListEmbed] });
       //This is a very temporary solution.
