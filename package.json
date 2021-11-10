@@ -5,7 +5,8 @@
   "main": "iMBot.js",
   "scripts": {
     "start": "pm2 start deploy-commands.js --no-autorestart && pm2 start iMBot.js && pm2 monit",
-    "stop": "pm2 stop all"
+    "stop": "pm2 stop all",
+    "reboot": "sudo git pull origin canary && pm2 start deploy-commands.js --no-autorestart && pm2 restart iMBot.js"
   },
   "keywords": [],
   "author": "Holy-Person",
