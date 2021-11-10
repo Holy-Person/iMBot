@@ -58,11 +58,8 @@ Bot.on("interactionCreate", async (interaction) => {
 });
 
 //Process message-based commands.
-Bot.on("messageCreate", (message) => {
+Bot.on("messageCreate", async (message) => {
   if (message.author.bot) return; //Ignore messages with bot authors.
-
-  const oomfie = messageCommands["oomfie"];
-  if (typeof oomfie != "undefined") oomfie.method(message, Bot); //Checks if message has 'oomfie'.
 
   if (!message.content.startsWith(Config.prefix)) return; //Ignore messages that don't start with the prefix.
 
