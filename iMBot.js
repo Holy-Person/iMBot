@@ -1,6 +1,6 @@
-const fs = require("fs");
+const Fs = require("fs");
+const Sequelize = require('sequelize');
 const { Client, Collection, Intents } = require("discord.js");
-const _commonFunctions = require('./commonFunctions.js');
 const Config = require('./config.json'); //Details on config structure in README.md.
 
 let messageCommands = {}; //Object of message-based commands.
@@ -9,11 +9,13 @@ const Bot = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
 });
 
+
+
 Bot.commands = new Collection();
-const slashCommandFiles = fs
+const slashCommandFiles = Fs
   .readdirSync("./slashCommands")
   .filter((file) => file.endsWith(".js"));
-const messageCommandFiles = fs
+const messageCommandFiles = Fs
   .readdirSync("./messageCommands")
   .filter((file) => file.endsWith(".js"));
 
@@ -22,7 +24,6 @@ for (const file of slashCommandFiles) {
   const command = require(`./slashCommands/${file}`);
   Bot.commands.set(command.data.name, command);
 }
-
 //Generate all message-based commands and push them into the messageCommands object.
 for (const file of messageCommandFiles) {
   const command = require(`./messageCommands/${file}`);
@@ -30,12 +31,37 @@ for (const file of messageCommandFiles) {
   messageCommands[name] = command;
 }
 
+
+
+//Connect database information
+const sequelize = new Sequelize('database', {
+  host: 'localhost',
+  dialect: 'sqlite',
+  logging: false,
+  storage: 'database.sqlite',
+});
+//Create database model
+const Database = sequelize.define('userdata', {
+  user: {
+    type: Sequelize.STRING,
+    unique: true, },
+  balance: {
+  	type: Sequelize.FLOAT,
+  	defaultValue: 0,
+  	allowNull: false, },
+}, {
+  	timestamps: false,
+});
+
+
+
 //Notify console once the bot is ready.
 Bot.once("ready", () => {
+  Database.sync();
   console.log(
     `Ready and logged in as ${Bot.user.tag}!\nThe current prefix is [${Config.prefix}].`
   );
-  Bot.user.setActivity("for the next [[BIG SHOT!!!]]", { type: "WATCHING" });
+  Bot.user.setActivity(`for ${Config.prefix} commands`, { type: "WATCHING" });
 });
 
 //Process slash commands.
@@ -74,7 +100,7 @@ Bot.on("messageCreate", async (message) => {
   const command = messageCommands[commandName];
   if (typeof command != "undefined")
     //Check if the command exists.
-    command.method(message, Bot, args); //pass message, botClient and all arguements to the command.
+    command.method(message, Bot, args, Database); //pass message, botClient and all arguements to the command.
 });
 
 Bot.login(Config.token); //Discord login for bot.
