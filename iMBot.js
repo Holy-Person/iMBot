@@ -34,7 +34,7 @@ for (const file of messageCommandFiles) {
 
 
 //Connect database information
-const sequelize = new Sequelize('database', {
+const sequelize = new Sequelize('database', 'user', 'password', {
   host: 'localhost',
   dialect: 'sqlite',
   logging: false,
