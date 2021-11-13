@@ -108,3 +108,6 @@ dist
 
 # Config Files
 config.json
+
+# Databases
+database.sqlite
