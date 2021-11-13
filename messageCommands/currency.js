@@ -4,7 +4,7 @@ const commonFunctions = require('../commonFunctions.js');
 module.exports = {
   description: `Description not set.`,
   usage: `Usage not set.`,
-  method: function (message, Bot, args, Database) {
+  method: async function (message, Bot, args, Database) {
 		try {
 			const test = await Database.create({
 				user: message.author.id,
