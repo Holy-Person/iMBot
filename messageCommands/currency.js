@@ -26,7 +26,7 @@ module.exports = {
         const test = await Database.findOne({ where: { user: message.author.id } });
 
         if (test) {
-        	return message.channel.send(`You currenly have `+test.get('balance') + `currency.`);
+        	return message.channel.send(`<@${test.user}> currently has ${test.balance} currency.`);
         }
 
         return message.channel.send(`Could not find your money. Are you poor?`);
