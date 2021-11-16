@@ -39,6 +39,8 @@ module.exports = {
           return message.channel.send(`You now have 0.2 currency.`);
         }
 
+        return message.channel.send(`Some random error.`);
+
         break;
       case 'clear':
         const rowCount = await Database.destroy({ where: { user: message.author.id } });
