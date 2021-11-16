@@ -33,7 +33,7 @@ module.exports = {
 
         break;
       case 'update':
-        const affectedEntries = await Database.update({ currency: 0.2 }, { where: { user: message.author.id } });
+        const affectedEntries = await Database.update({ balance: 0.2 }, { where: { user: message.author.id } });
 
         if (affectedEntries > 0) {
           return message.channel.send(`You now have 0.2 currency.`);
