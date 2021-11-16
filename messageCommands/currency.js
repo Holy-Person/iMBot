@@ -32,9 +32,24 @@ module.exports = {
         return message.channel.send(`Could not find your money. Are you poor?`);
 
         break;
-      default:
-        return message.channel.send('Please define args like add/view.');
-    }
+      case 'update':
+        const affectedEntries = await Database.update({ currency: 0.2 }, { where: { user: message.author.id } });
 
+        if (affectedEntries > 0) {
+          return message.channel.send(`You now have 0.2 currency.`);
+        }
+
+        break;
+      case 'clear':
+        const rowCount = await Database.destroy({ where: { user: message.author.id } });
+
+        if (!rowCount) return message.channel.send(`You don't have any currency.`);
+
+        return message.channel.send(`Currency cleared.`);
+
+        break;
+      default:
+        return message.channel.send('Please define args like add/view/update/clear.');
+    }
   }
 };
