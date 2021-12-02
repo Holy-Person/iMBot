@@ -24,7 +24,7 @@ module.exports = {
               message.channel.send(`Added ${args[2]} ${Config.currencyName} to <@${Target}>.`);
             break;
             default:
-              return message.channel.send('Error.');
+              return message.channel.send(`Error with the code ${Interaction}. Target is <@${Target}>`);
           }
         }
         break;
