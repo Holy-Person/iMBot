@@ -9,6 +9,7 @@ module.exports = {
     switch (args[0]) {
       case 'add':
         if (!Config.userID.botDevs.find(u => u == message.author.id) ) {
+          message.channel.send(`this is a test btw :)`);
           const mentionedUser = commonFunctions.getUserFromMention(args[1], Bot);
           CurrencyInteractions.give(Database, 0.132, message.author.id, mentionedUser.id);
         }
