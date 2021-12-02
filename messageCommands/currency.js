@@ -9,7 +9,7 @@ module.exports = {
     switch (args[0]) {
       case 'add':
         if (Config.userID.botDevs.find(u => u == message.author.id) ) {
-          const mentionedUser = commonFunctions.getUserFromMention(args[1], Bot);
+          const mentionedUser = commonFunctions.getIdFromMention(args[1], Bot);
           if (!args[2]) {
             return message.channel.send(`Please define the amount of currency you want to add.`);
           }
