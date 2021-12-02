@@ -17,12 +17,14 @@ module.exports = {
           if(mentionedUser) { Target = mentionedUser.id; }
           const Interaction = CurrencyInteractions.give(Database, +(args[2]), message.author.id, Target);
           switch (Interaction) {
-            case 0:
+            case "create":
               message.channel.send(`Created an entry in the database and added ${args[2]} ${Config.currencyName} to <@${Target}>.`);
             break;
-            case 1:
+            case "update":
               message.channel.send(`Added ${args[2]} ${Config.currencyName} to <@${Target}>.`);
             break;
+            default:
+              return message.channel.send('Error.');
           }
         }
         break;
