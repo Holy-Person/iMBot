@@ -1,5 +1,6 @@
 const Config = require('../config.json');
 const commonFunctions = require('../commonFunctions.js');
+const CurrencyInteractions = require('../currencyInteractions.js');
 
 module.exports = {
   description: `Description not set.`,
@@ -7,19 +8,9 @@ module.exports = {
   method: async function (message, Bot, args, Database) {
     switch (args[0]) {
       case 'add':
-        try {
-          const test = await Database.create({
-            user: message.author.id,
-            balance: 0.1,
-          });
-
-          return message.channel.send(`You now have 0.1 currency.`);
-        } catch (error) {
-          if (error.name === 'SequelizeUniqueConstraintError') {
-            return message.channel.send('Already got currency.');
-          }
-
-          return message.channel.send('Something else went wrong.');
+        if (!Config.userID.botDevs.find(u => u == message.author.id) ) {
+          const mentionedUser = commonFunctions.getUserFromMention(args[1], Bot);
+          CurrencyInteractions.give(Database, 0.132, message.author.id, mentionedUser.id);
         }
         break;
       case 'view':
