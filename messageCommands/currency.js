@@ -8,10 +8,12 @@ module.exports = {
   method: async function (message, Bot, args, Database) {
     switch (args[0]) {
       case 'add':
-        if (!Config.userID.botDevs.find(u => u == message.author.id) ) {
+        if (Config.userID.botDevs.find(u => u == message.author.id) ) {
           message.channel.send(`this is a test btw :)`);
           const mentionedUser = commonFunctions.getUserFromMention(args[1], Bot);
-          CurrencyInteractions.give(Database, 0.132, message.author.id, mentionedUser.id);
+          if(mentionedUser) {
+            CurrencyInteractions.give(Database, 0.132, message.author.id, mentionedUser.id);
+          }
         }
         break;
       case 'view':
