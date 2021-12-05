@@ -9,7 +9,7 @@ module.exports = {
         balance: Amount,
       });
 
-      return "create"; //Created database entry
+      return 0; //Created database entry
     } catch (error) {
       if (error.name === 'SequelizeUniqueConstraintError') {
         const recievingUser = await Database.findOne({ where: { user: TargetID } });
@@ -19,7 +19,7 @@ module.exports = {
         const affectedEntries = await Database.update({ balance: newBalance }, { where: { user: TargetID } });
 
         if (affectedEntries > 0) {
-          return "update"; //Updated entry.
+          return 1; //Updated entry.
         }
 
         return 2; //Other error, didn't update.
@@ -28,10 +28,10 @@ module.exports = {
       return 3; //Other error, didn't do anything.
     }
   },
-  remove: async function (Database, Amount, Operator, Target) {
+  remove: async function (Database, Amount, OperatorID, TargetID) {
     //empty
   },
-  transfer: async function (Database, Amount, Operator, Target) {
+  transfer: async function (Database, Amount, OperatorID, TargetID) {
     //empty
   }
 }

@@ -17,12 +17,14 @@ module.exports = {
           if(mentionedUser) { Target = mentionedUser.id; }
           const Interaction = await CurrencyInteractions.give(Database, +(args[2]), message.author.id, Target);
           switch (Interaction) {
-            case "create":
-              message.channel.send(`Created an entry in the database and added ${args[2]} ${Config.currencyName} to <@${Target}>.`);
-            break;
-            case "update":
-              message.channel.send(`Added ${args[2]} ${Config.currencyName} to <@${Target}>.`);
-            break;
+            case 0:
+              return message.channel.send(`Created an entry in the database and added ${args[2]} ${Config.currencyName} to <@${Target}>.`);
+            case 1:
+              return message.channel.send(`Added ${args[2]} ${Config.currencyName} to <@${Target}>.`);
+            case 2:
+              return message.channel.send(`Unknown error, couldn't update database entry.`);
+            case 3:
+              return message.channel.send(`Unknown error, couldn't create an entry in the database.`);
             default:
               return message.channel.send(`Error with the code ${Interaction}. Target is <@${Target}>`);
           }
