@@ -16,7 +16,7 @@ module.exports = {
           }
           var Target = message.author.id;
           if(mentionedUser) { Target = mentionedUser.id; }
-          const Interaction = CurrencyInteractions.give(Database, +(args[2]), message.author.id, Target);
+          const Interaction = await CurrencyInteractions.give(Database, +(args[2]), message.author.id, Target);
           switch (Interaction) {
             case "create":
               message.channel.send(`Created an entry in the database and added ${args[2]} ${Config.currencyName} to <@${Target}>.`);
