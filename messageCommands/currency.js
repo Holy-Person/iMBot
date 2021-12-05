@@ -8,7 +8,6 @@ module.exports = {
   method: async function (message, Bot, args, Database) {
     switch (args[0]) {
       case 'add':
-<<<<<<< Updated upstream
         if (Config.userID.botDevs.find(u => u == message.author.id) ) {
           const mentionedUser = commonFunctions.getUserFromMention(args[1], Bot);
           if (!args[2]) {
@@ -29,35 +28,6 @@ module.exports = {
           }
         }
         break;
-=======
-        if (!Config.userID.botDevs.find(u => u == message.author.id) ) {
-          return message.channel.send(`Sorry <@${message.author.id}> you are not allowed to use this command.`);
-        }
-        if (!args[2]) {
-          return message.channel.send(`Please define the amount of currency you want to add.`);
-        }
-
-        const mentionedUser = commonFunctions.getUserFromMention(args[1], Bot);
-        if (!mentionedUser) {
-          return message.channel.send(`Couldn't find the mentioned user.`)
-        }
-
-        var Target = mentionedUser.id;
-        const Interaction = await CurrencyInteractions.give(Database, +(args[2]), message.author.id, Target);
-        switch (Interaction) {
-          case 0:
-            return message.channel.send(`Created an entry in the database and added ${args[2]} ${Config.currencyName} to <@${Target}>.`);
-          case 1:
-            return message.channel.send(`Added ${args[2]} ${Config.currencyName} to <@${Target}>.`);
-          case 2:
-            return message.channel.send(`Unknown error, couldn't update database entry.`);
-          case 3:
-            return message.channel.send(`Unknown error while trying to add the database entry.`);
-          default:
-            return message.channel.send(`Error with the code ${Interaction}.`);
-        }
-      break;
->>>>>>> Stashed changes
       case 'view':
         const test = await Database.findOne({ where: { user: message.author.id } });
 
