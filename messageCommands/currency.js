@@ -1,5 +1,5 @@
 const Config = require('../config.json');
-const commonFunctions = require('../commonFunctions.js');
+const CommonFunctions = require('../commonFunctions.js');
 const CurrencyInteractions = require('../currencyInteractions.js');
 
 module.exports = {
@@ -9,53 +9,70 @@ module.exports = {
     switch (args[0]) {
       case 'add':
         if (Config.userID.botDevs.find(u => u == message.author.id) ) {
-          const mentionedUser = commonFunctions.getUserFromMention(args[1], Bot);
-          if (!args[2]) {
-            return message.channel.send(`Please define the amount of currency you want to add.`);
-          }
-          var Target = message.author.id;
-          if(mentionedUser) { Target = mentionedUser.id; }
-          const Interaction = await CurrencyInteractions.give(Database, +(args[2]), message.author.id, Target);
-          switch (Interaction) {
-            case 0:
-              return message.channel.send(`Created an entry in the database and added ${args[2]} ${Config.currencyName} to <@${Target}>.`);
-            case 1:
-              return message.channel.send(`Added ${args[2]} ${Config.currencyName} to <@${Target}>.`);
-            case 2:
-              return message.channel.send(`Unknown error, couldn't update database entry.`);
-            case 3:
-              return message.channel.send(`Unknown error, couldn't create an entry in the database.`);
-            default:
-              return message.channel.send(`Error with the code ${Interaction}. Target is <@${Target}>`);
-          }
+          return message.channel.send(`You do not have permission to use this command.`);
+        }
+
+        if (!args[2]) {
+          return message.channel.send(`Please define the amount of ${Config.currencyName} you want to add.`);
+        }
+
+        const MentionedUser = CommonFunctions.getUserFromMention(args[1], Bot);
+        if(!MentionedUser) { return message.channel.send(`Couldn't find the mentioned user.`); }
+
+        const Target = MentionedUser.id;
+        const Interaction = await CurrencyInteractions.give(Database, +(args[2]), message.author.id, Target);
+        switch (Interaction) {
+          case 0:
+            return message.channel.send(`Created an entry in the database and added ${args[2]} ${Config.currencyName} to <@${Target}>.`);
+          case 1:
+            return message.channel.send(`Added ${args[2]} ${Config.currencyName} to <@${Target}>.`);
+          case 2:
+            return message.channel.send(`Unknown error, couldn't update database entry.`);
+          case 3:
+            return message.channel.send(`Unknown error, couldn't create an entry in the database.`);
+          default:
+            return message.channel.send(`Error with the code ${Interaction}. Target is <@${Target}>`);
         }
         break;
       case 'view':
-        const test = await Database.findOne({ where: { user: message.author.id } });
-
-        if (test) {
-        	return message.channel.send(`<@${test.user}> currently has ${test.balance} currency.`);
+        if (!args[1]) {
+          const FoundBalance = await CurrencyInteractions.give(Database, message.author.id);
+          if (FoundBalance) {
+            return message.channel.send(`You currently have ${FoundBalance} ${Config.currencyName}.`);
+          } else {
+            return message.channel.send(`You currently seem to have no ${Config.currencyName}.`);
+          }
         }
 
-        return message.channel.send(`Could not find your money. Are you poor?`);
+        const MentionedUser = CommonFunctions.getUserFromMention(args[1], Bot);
+        if(!MentionedUser) { return message.channel.send(`Couldn't find the mentioned user.`); }
+
+        const FoundBalance = await CurrencyInteractions.give(Database, MentionedUser.id);
+        if (FoundBalance) {
+        	return message.channel.send(`<@${MentionedUser.id}> currently has ${FoundBalance} ${Config.currencyName}.`);
+        } else {
+          return message.channel.send(`That user currently doesn't seem to have any ${Config.currencyName}.`);
+        }
 
         break;
       case 'update':
+      //Temp version
         const affectedEntries = await Database.update({ balance: 0.2 }, { where: { user: message.author.id } });
 
         if (affectedEntries > 0) {
-          return message.channel.send(`You now have 0.2 currency.`);
+          return message.channel.send(`You now have 0.2 ${Config.currencyName}.`);
         }
 
         return message.channel.send(`Some random error.`);
 
         break;
       case 'clear':
+      //Temp version
         const rowCount = await Database.destroy({ where: { user: message.author.id } });
 
-        if (!rowCount) return message.channel.send(`You don't have any currency.`);
+        if (!rowCount) return message.channel.send(`You don't have any ${Config.currencyName}.`);
 
-        return message.channel.send(`Currency cleared.`);
+        return message.channel.send(`${Config.currencyName} cleared.`);
 
         break;
       default:

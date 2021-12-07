@@ -14,7 +14,7 @@ module.exports = {
       if (error.name === 'SequelizeUniqueConstraintError') {
         const recievingUser = await Database.findOne({ where: { user: TargetID } });
 
-        let newBalance = recievingUser.balance + Amount;
+        let newBalance = commonFunctions.betterRound(recievingUser.balance + Amount, 9);
 
         const affectedEntries = await Database.update({ balance: newBalance }, { where: { user: TargetID } });
 
@@ -32,6 +32,13 @@ module.exports = {
     //empty
   },
   transfer: async function (Database, Amount, OperatorID, TargetID) {
+    //empty
+  },
+  find: async function (Database, TargetID) {
+    const FoundEntry = await Database.findOne({ where: { user: TargetID } });
+    if (FoundEntry) { return FoundEntry.balance; } else { return false; }
+  },
+  daily: async function (Database, OperatorID) {
     //empty
   }
 }
