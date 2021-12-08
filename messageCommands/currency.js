@@ -16,10 +16,10 @@ module.exports = {
           return message.channel.send(`Please define the amount of ${Config.currencyName} you want to add.`);
         }
 
-        let mentionedUser = CommonFunctions.getUserFromMention(args[1], Bot);
-        if(!mentionedUser) { return message.channel.send(`Couldn't find the mentioned user.`); }
+        let mention = CommonFunctions.getUserFromMention(args[1], Bot);
+        if(!mention) { return message.channel.send(`Couldn't find the mentioned user.`); }
 
-        const Target = mentionedUser.id;
+        const Target = mention.id;
         const Interaction = await CurrencyInteractions.give(Database, +(args[2]), message.author.id, Target);
         switch (Interaction) {
           case 0:
@@ -44,12 +44,12 @@ module.exports = {
           }
         }
 
-        let mentionedUser = CommonFunctions.getUserFromMention(args[1], Bot);
-        if(!mentionedUser) { return message.channel.send(`Couldn't find the mentioned user.`); }
+        let mention = CommonFunctions.getUserFromMention(args[1], Bot);
+        if(!mention) { return message.channel.send(`Couldn't find the mentioned user.`); }
 
-        const FoundBalance = await CurrencyInteractions.give(Database, mentionedUser.id);
+        const FoundBalance = await CurrencyInteractions.give(Database, mention.id);
         if (FoundBalance) {
-        	return message.channel.send(`<@${mentionedUser.id}> currently has ${FoundBalance} ${Config.currencyName}.`);
+        	return message.channel.send(`<@${mention.id}> currently has ${FoundBalance} ${Config.currencyName}.`);
         } else {
           return message.channel.send(`That user currently doesn't seem to have any ${Config.currencyName}.`);
         }
