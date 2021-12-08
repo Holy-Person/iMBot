@@ -36,7 +36,7 @@ module.exports = {
         break;
       case 'view':
         if (!args[1]) {
-          const FoundBalance = await CurrencyInteractions.give(Database, message.author.id);
+          const FoundBalance = await CurrencyInteractions.find(Database, message.author.id);
           if (FoundBalance) {
             return message.channel.send(`You currently have ${FoundBalance} ${Config.currencyName}.`);
           } else {
