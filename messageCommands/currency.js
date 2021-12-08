@@ -6,6 +6,7 @@ module.exports = {
   description: `Description not set.`,
   usage: `Usage not set.`,
   method: async function (message, Bot, args, Database) {
+    let mention = CommonFunctions.getUserFromMention(args[1], Bot);
     switch (args[0]) {
       case 'add':
         if (!Config.userID.botDevs.find(u => u == message.author.id) ) {
@@ -16,8 +17,7 @@ module.exports = {
           return message.channel.send(`Please define the amount of ${Config.currencyName} you want to add.`);
         }
 
-        let mention = CommonFunctions.getUserFromMention(args[1], Bot);
-        if(!mention) { return message.channel.send(`Couldn't find the mentioned user.`); }
+        if (!mention) { return message.channel.send(`Couldn't find the mentioned user.`); }
 
         const Target = mention.id;
         const Interaction = await CurrencyInteractions.give(Database, +(args[2]), message.author.id, Target);
@@ -44,8 +44,7 @@ module.exports = {
           }
         }
 
-        let mention2 = CommonFunctions.getUserFromMention(args[1], Bot);
-        if(!mention2) { return message.channel.send(`Couldn't find the mentioned user.`); }
+        if (!mention) { return message.channel.send(`Couldn't find the mentioned user.`); }
 
         const FoundBalance = await CurrencyInteractions.find(Database, mention2.id);
         if (FoundBalance) {
