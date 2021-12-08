@@ -8,7 +8,7 @@ module.exports = {
   method: async function (message, Bot, args, Database) {
     switch (args[0]) {
       case 'add':
-        if (Config.userID.botDevs.find(u => u == message.author.id) ) {
+        if (!Config.userID.botDevs.find(u => u == message.author.id) ) {
           return message.channel.send(`You do not have permission to use this command.`);
         }
 
