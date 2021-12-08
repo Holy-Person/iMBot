@@ -44,12 +44,12 @@ module.exports = {
           }
         }
 
-        let mention = CommonFunctions.getUserFromMention(args[1], Bot);
-        if(!mention) { return message.channel.send(`Couldn't find the mentioned user.`); }
+        let mention2 = CommonFunctions.getUserFromMention(args[1], Bot);
+        if(!mention2) { return message.channel.send(`Couldn't find the mentioned user.`); }
 
-        const FoundBalance = await CurrencyInteractions.give(Database, mention.id);
+        const FoundBalance = await CurrencyInteractions.give(Database, mention2.id);
         if (FoundBalance) {
-        	return message.channel.send(`<@${mention.id}> currently has ${FoundBalance} ${Config.currencyName}.`);
+        	return message.channel.send(`<@${mention2.id}> currently has ${FoundBalance} ${Config.currencyName}.`);
         } else {
           return message.channel.send(`That user currently doesn't seem to have any ${Config.currencyName}.`);
         }
