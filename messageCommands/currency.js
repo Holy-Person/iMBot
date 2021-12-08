@@ -46,9 +46,9 @@ module.exports = {
 
         if (!mention) { return message.channel.send(`Couldn't find the mentioned user.`); }
 
-        const FoundBalance = await CurrencyInteractions.find(Database, mention2.id);
+        const FoundBalance = await CurrencyInteractions.find(Database, mention.id);
         if (FoundBalance) {
-        	return message.channel.send(`<@${mention2.id}> currently has ${FoundBalance} ${Config.currencyName}.`);
+        	return message.channel.send(`<@${mention.id}> currently has ${FoundBalance} ${Config.currencyName}.`);
         } else {
           return message.channel.send(`That user currently doesn't seem to have any ${Config.currencyName}.`);
         }
