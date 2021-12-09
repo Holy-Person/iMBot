@@ -2,7 +2,7 @@ const Config = require('./config.json');
 const commonFunctions = require('./commonFunctions.js');
 
 module.exports = {
-  give: async function (Database, Amount, OperatorID, TargetID) {
+  modify: async function (Database, Amount, TargetID) {
     try {
       const NewUser = await Database.create({
         user: TargetID,
@@ -28,17 +28,20 @@ module.exports = {
       return 3; //Other error, didn't do anything.
     }
   },
-  remove: async function (Database, Amount, OperatorID, TargetID) {
-    //empty
-  },
   transfer: async function (Database, Amount, OperatorID, TargetID) {
-    //empty
+    if (Amount < 0.01) { return 1 };
+    let operatorBalance = find(Database, OperatorID);
+    if (!operatorBalance) { return 2; }
+    if (operatorBalance < Amount) { return 3; }
+    modify(Database, Amount, TargetID);
+    modify(Database, -Amount, OperatorID);
+    return 0;
   },
   find: async function (Database, TargetID) {
     const FoundEntry = await Database.findOne({ where: { user: TargetID } });
     if (FoundEntry) { return FoundEntry.balance; } else { return false; }
   },
   daily: async function (Database, OperatorID) {
-    //empty
+    //Config.currencyMultiplier
   }
 }
