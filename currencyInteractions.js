@@ -30,11 +30,11 @@ module.exports = {
   },
   transfer: async function (Database, Amount, OperatorID, TargetID) {
     if (Amount < 0.01) { return 1 };
-    let operatorBalance = find(Database, OperatorID);
+    let operatorBalance = this.find(Database, OperatorID);
     if (!operatorBalance) { return 2; }
     if (operatorBalance < Amount) { return 3; }
-    modify(Database, Amount, TargetID);
-    modify(Database, -Amount, OperatorID);
+    this.modify(Database, Amount, TargetID);
+    this.modify(Database, -Amount, OperatorID);
     return 0;
   },
   find: async function (Database, TargetID) {
