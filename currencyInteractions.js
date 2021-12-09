@@ -34,8 +34,9 @@ module.exports = {
     let operatorBalance = await this.find(Database, OperatorID);
     if (!operatorBalance) { return 3; }
     if (operatorBalance < Amount) { return 4; }
-    await this.modify(Database, Amount, TargetID);
     await this.modify(Database, -Amount, OperatorID);
+    Amount = commonFunctions.betterRound(Amount / 1.03, 5);
+    await this.modify(Database, Amount, TargetID);
     return 0;
   },
   find: async function (Database, TargetID) {

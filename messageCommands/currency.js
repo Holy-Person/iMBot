@@ -62,9 +62,9 @@ module.exports = {
           case 0:
             return message.channel.send(`Transaction successful.`);
           case 1:
-            return message.channel.send(`Cannot send money to yourself.`);
-          case 2:
             return message.channel.send(`Transfer value too low.`);
+          case 2:
+            return message.channel.send(`Cannot send money to yourself.`);
           case 3:
             return message.channel.send(`No entry in the database for operator.`);
           case 4:
