@@ -8,24 +8,24 @@ module.exports = {
   method: async function (message, Bot, args, Database) {
     let mention = CommonFunctions.getUserFromMention(args[1], Bot);
     switch (args[0]) {
-      case 'add':
-        if (!Config.userID.botDevs.find(u => u == message.author.id) ) {
+      case 'modify':
+        if (!Config.userID.discordMods.find(u => u == message.author.id) ) {
           return message.channel.send(`You do not have permission to use this command.`);
         }
 
         if (!args[2]) {
-          return message.channel.send(`Please define the amount of ${Config.currencyName} you want to add.`);
+          return message.channel.send(`Please define a value of ${Config.currencyName} to modify the entry with.`);
         }
 
         if (!mention) { return message.channel.send(`Couldn't find the mentioned user.`); }
 
         const Target = mention.id;
-        const Interaction = await CurrencyInteractions.give(Database, +(args[2]), message.author.id, Target);
+        const Interaction = await CurrencyInteractions.modify(Database, +(args[2]), Target);
         switch (Interaction) {
           case 0:
-            return message.channel.send(`Created an entry in the database and added ${args[2]} ${Config.currencyName} to <@${Target}>.`);
+            return message.channel.send(`Created an entry in the database and modified balance by ${args[2]} ${Config.currencyName} for <@${Target}>.`);
           case 1:
-            return message.channel.send(`Added ${args[2]} ${Config.currencyName} to <@${Target}>.`);
+            return message.channel.send(`Modified <@${Target}>'s balance by ${args[2]} ${Config.currencyName}.`);
           case 2:
             return message.channel.send(`Unknown error, couldn't update database entry.`);
           case 3:
@@ -52,17 +52,24 @@ module.exports = {
         } else {
           return message.channel.send(`That user currently doesn't seem to have any ${Config.currencyName}.`);
         }
-
         break;
-      case 'update':
-      //Temp version
-        const affectedEntries = await Database.update({ balance: 0.2 }, { where: { user: message.author.id } });
+      case 'send':
+        if (!mention) { return message.channel.send(`Couldn't find the mentioned user.`); }
 
-        if (affectedEntries > 0) {
-          return message.channel.send(`You now have 0.2 ${Config.currencyName}.`);
+        const Transaction = await CurrencyInteractions.transfer(Database, +(args[2]), message.author.id, mention.id);
+
+        switch (Transaction) {
+          case 0:
+            return message.channel.send(`Transaction successful.`);
+          case 1:
+            return message.channel.send(`Transfer value too low.`);
+          case 2:
+            return message.channel.send(`No entry in the database for operator.`);
+          case 3:
+            return message.channel.send(`Not enough ${Config.currencyName}.`);
+          default:
+            return message.channel.send(`Error with the code ${Transaction}. Target is <@${Target}>`);
         }
-
-        return message.channel.send(`Some random error.`);
 
         break;
       case 'clear':
