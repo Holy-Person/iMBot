@@ -62,10 +62,12 @@ module.exports = {
           case 0:
             return message.channel.send(`Transaction successful.`);
           case 1:
-            return message.channel.send(`Transfer value too low.`);
+            return message.channel.send(`Cannot send money to yourself.`);
           case 2:
-            return message.channel.send(`No entry in the database for operator.`);
+            return message.channel.send(`Transfer value too low.`);
           case 3:
+            return message.channel.send(`No entry in the database for operator.`);
+          case 4:
             return message.channel.send(`Not enough ${Config.currencyName}.`);
           default:
             return message.channel.send(`Error with the code ${Transaction}. Target is <@${Target}>`);
