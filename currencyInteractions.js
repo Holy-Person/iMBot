@@ -35,6 +35,7 @@ module.exports = {
     if (!operatorBalance) { return 3; }
     if (operatorBalance < Amount) { return 4; }
     await this.modify(Database, -Amount, OperatorID);
+    await this.modify(Database, Amount - commonFunctions.betterRound(Amount / 1.03, 5), Config.clientID);
     Amount = commonFunctions.betterRound(Amount / 1.03, 5);
     await this.modify(Database, Amount, TargetID);
     return 0;
