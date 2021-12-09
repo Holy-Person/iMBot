@@ -27,6 +27,8 @@ Here is an example config you can copy.
 	"guildID": 111111111111111111,
 	"prefix": "!",
 	"token": "T0T4LLy.A.R3al_ToK3n",
+	"currencyName": "Gold",
+  	"currencyMultiplier": 1,
 	"userID": {
 		"botDevs": [
       111111111111111111,
