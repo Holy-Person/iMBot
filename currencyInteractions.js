@@ -1,5 +1,5 @@
 const Config = require('./config.json');
-const commonFunctions = require('./commonFunctions.js');
+const CommonFunctions = require('./commonFunctions.js');
 
 module.exports = {
   modify: async function (Database, Amount, TargetID) {
@@ -12,13 +12,13 @@ module.exports = {
       return 0; //Created database entry
     } catch (error) {
       if (error.name === 'SequelizeUniqueConstraintError') {
-        const recievingUser = await Database.findOne({ where: { user: TargetID } });
+        const RecievingUser = await Database.findOne({ where: { user: TargetID } });
 
-        let newBalance = commonFunctions.betterRound(recievingUser.balance + Amount, 9);
+        let newBalance = CommonFunctions.betterRound(RecievingUser.balance + Amount, 9);
 
-        const affectedEntries = await Database.update({ balance: newBalance }, { where: { user: TargetID } });
+        const AffectedEntries = await Database.update({ balance: newBalance }, { where: { user: TargetID } });
 
-        if (affectedEntries > 0) {
+        if (AffectedEntries > 0) {
           return 1; //Updated entry.
         }
 
@@ -29,16 +29,16 @@ module.exports = {
     }
   },
   transfer: async function (Database, Amount, OperatorID, TargetID) {
-    if (Amount < 0.01) { return 1 };
-    if (OperatorID == TargetID) { return 2 };
+    if (Amount < 0.01) { return 1 }; //Not enought to transfer
+    if (OperatorID == TargetID) { return 2 }; //Transfer to self
     let operatorBalance = await this.find(Database, OperatorID);
-    if (!operatorBalance) { return 3; }
-    if (operatorBalance < Amount) { return 4; }
-    await this.modify(Database, -Amount, OperatorID);
-    await this.modify(Database, Amount - commonFunctions.betterRound(Amount / 1.03, 5), Config.clientID);
-    Amount = commonFunctions.betterRound(Amount / 1.03, 5);
-    await this.modify(Database, Amount, TargetID);
-    return 0;
+    if (!operatorBalance) { return 3; } //Balance of operator non-existant
+    if (operatorBalance < Amount) { return 4; } //Trying to transfer more than operator has
+    await this.modify(Database, -Amount, OperatorID); //Subtract from operator
+    await this.modify(Database, Amount - CommonFunctions.betterRound(Amount / 1.03, 5), Config.clientID); //Send taxes to bot
+    Amount = CommonFunctions.betterRound(Amount / 1.03, 5); //Remove currency via taxes
+    await this.modify(Database, Amount, TargetID); //Send currency to target
+    return 0; //Finished
   },
   find: async function (Database, TargetID) {
     const FoundEntry = await Database.findOne({ where: { user: TargetID } });
