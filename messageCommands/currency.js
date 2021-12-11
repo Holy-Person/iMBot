@@ -33,7 +33,6 @@ module.exports = {
           default:
             return message.channel.send(`Error with the code ${Interaction}. Target is <@${Target}>`);
         }
-        break;
       case 'view':
         if (!args[1]) {
           const FoundBalance = await CurrencyInteractions.find(Database, message.author.id);
@@ -52,7 +51,6 @@ module.exports = {
         } else {
           return message.channel.send(`That user currently doesn't seem to have any ${Config.currencyName}.`);
         }
-        break;
       case 'send':
         if (!mention) { return message.channel.send(`Couldn't find the mentioned user.`); }
 
@@ -73,7 +71,6 @@ module.exports = {
             return message.channel.send(`Error with the code ${Transaction}. Target is <@${Target}>`);
         }
 
-        break;
       case 'clear':
       //Temp version
         const rowCount = await Database.destroy({ where: { user: message.author.id } });
@@ -82,7 +79,6 @@ module.exports = {
 
         return message.channel.send(`${Config.currencyName} cleared.`);
 
-        break;
       default:
         return message.channel.send('Please define args like add/view/update/clear.');
     }
