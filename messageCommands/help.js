@@ -47,21 +47,23 @@ module.exports = {
       return message.channel.send({ embeds: [CommandEmbed] });
     }
     
-    let commandsList = '';
+    let slashCommandsList = '';
+    let messageCommandsList = '';
 
     for (const file of messageCommandFiles) {
       const name = file.slice(0, -3);
-      commandsList = commandsList.concat('\n', name);
+      messageCommandsList = messageCommandsList.concat('\n', name);
     }
 
     for (const file of slashCommands) {
       const name = file.slice(0, -3);
-      commandsList = commandsList.concat('\n', name);
+      slashCommandsList = slashCommandsList.concat('\n', name);
     }
 
     const HelpEmbed = new MessageEmbed()
       .setTitle(`Command List`)
-      .addField('\'iM!help [command name]\' for more info', commandsList);
+      .addField('Message Commands', messageCommandsList)
+      .addField('Slash Commands', slashCommandsList);
     HelpEmbed.setColor('#484C92');//This also works btw, use for filling pages.
     return message.channel.send({ embeds: [HelpEmbed] });
   }
