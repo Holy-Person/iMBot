@@ -6,10 +6,6 @@ const messageCommandFiles = fs
   .readdirSync("./messageCommands")
   .filter((file) => file.endsWith(".js"));
 
-  const slashCommands = fs
-  .readdirSync("./slashCommands")
-  .filter((file) => file.endsWith(".js"));
-
 const messageCommands = new Array();
 
 module.exports = {
@@ -46,22 +42,9 @@ module.exports = {
         .addField("Usage", commandObject.usage);
       return message.channel.send({ embeds: [CommandEmbed] });
     }
-
-    let commandsList = '';
-
-    for (const file of messageCommandFiles) {
-      const name = file.slice(0, -3);
-      commandsList = commandsList.concat('\n', name);
-    }
-
-    for (const file of slashCommands) {
-      const name = file.slice(0, -3);
-      commandsList = commandsList.concat('\n', name);
-    }
-
     const HelpEmbed = new MessageEmbed()
       .setTitle(`Command List`)
-      .addField('\'iM!help [command name]\' for more info', commandsList);
+      .addField('Coming Soon', 'Soon means soon, give it some time.');
     HelpEmbed.setColor('#484C92');//This also works btw, use for filling pages.
     return message.channel.send({ embeds: [HelpEmbed] });
   }
