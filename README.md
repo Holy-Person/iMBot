@@ -104,17 +104,17 @@ module.exports = {
 
 ## Branches
 - [main](https://github.com/Holy-Person/iMBot/tree/main)
- - The default branch.
- - Great to fork your own bot from.
- - Recommended if you want a nice template to start from.
+  - The default branch.
+  - Great to fork your own bot from.
+  - Recommended if you want a nice template to start from.
 - [canary](https://github.com/Holy-Person/iMBot/tree/canary)
- - The experimental branch.
- - This is where we test new/unfinished things before merging them into [main](https://github.com/Holy-Person/iMBot/tree/main).
- - Usually safe to fork for your own bot.
- - Recommended if you want the most up-to-date experience.
+  - The experimental branch.
+  - This is where we test new/unfinished things before merging them into [main](https://github.com/Holy-Person/iMBot/tree/main).
+  - Usually safe to fork for your own bot.
+  - Recommended if you want the most up-to-date experience.
 - [kromer rework](https://github.com/Holy-Person/iMBot/tree/kromer-rework)
- - Old currency test branch.
- - Will probably get removed soon.
+  - Old currency test branch.
+  - Will probably get removed soon.
 
 ## License
 
