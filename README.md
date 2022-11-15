@@ -7,14 +7,21 @@
 
 ---
 
-This is a community bot for the iM Discord server.
+<table>
+<tr>
+<td>
+This is a community bot that we originally made for the Discord linked above.<br>
+Modular in nature, it should be quite simple to adjust for your own servers as well.
+</td>
+</tr>
+</table>
 
-## Stuff We Use
+## What We Use
 
-- **Node.js** v16.11.0
-- **discord.js** v13.2.0
-- **npm** v8.0.0
-- **pm2** v5.1.2
+- **[Node.js](https://nodejs.org/en/)** v16.11.0
+- **[discord.js](https://discord.js.org/#/)** v13.2.0
+- **[npm](https://www.npmjs.com/)** v8.0.0
+- **[pm2](https://pm2.io/)** v5.1.2
 
 ## Setup
 
@@ -63,7 +70,7 @@ Here is an example config you can copy.
 <details>
 <summary><strong>Slash Commands</strong></summary>
 
-To add a new command, add a new .js file in the `slashCommands` folder, please use the template below.
+To add a new command, add a new .js file in the `slashCommands` folder, the template below can be used and built off of.
 
 ```js
 const { SlashCommandBuilder } = require("@discordjs/builders");
@@ -84,8 +91,8 @@ module.exports = {
 <details>
 <summary><strong>Message Commands</strong></summary>
 
-To add a new command, add a new .js file in the `messageCommands` folder, please use the template below.<br>
-Name your file the way you want the command to be named.
+To add a new command, add a new .js file in the `messageCommands` folder, the template below can be used and built off of.<br>
+The filename sets the name of the command as well, so make sure to change it.
 
 ```js
 const Config = require('../config.json');
@@ -109,12 +116,17 @@ module.exports = {
   - Recommended if you want a nice template to start from.
 - [canary](https://github.com/Holy-Person/iMBot/tree/canary)
   - The experimental branch.
-  - This is where we test new/unfinished things before merging them into [main](https://github.com/Holy-Person/iMBot/tree/main).
+  - This is where we test new and unfinished code before merging it into [main](https://github.com/Holy-Person/iMBot/tree/main).
   - Usually safe to fork for your own bot.
   - Recommended if you want the most up-to-date experience.
 - [kromer rework](https://github.com/Holy-Person/iMBot/tree/kromer-rework)
   - Old currency test branch.
   - Will probably get removed soon.
+
+## Contributions
+
+Contributions in the form of issues or even pull requests are always welcome!<br>
+Chat and test on our [Discord](https://discord.gg/JpcBxZv6bF).
 
 ## License
 
