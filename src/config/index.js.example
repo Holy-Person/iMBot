@@ -1,0 +1,26 @@
+import { ActivityType, GatewayIntentBits } from 'discord.js';
+
+export const runningInProduction = process.env.NODE_ENV === 'production';
+
+
+// config is not fully done yet, more stuff will appear soon ;)
+export default {
+  discordToken: '',
+
+  discord: {
+    allowedMentions: {
+      parse: ['users', 'everyone', 'roles'],
+      repliedUser: false,
+    },
+    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages],
+    presence: {
+      status: 'online',
+      activities: [
+        {
+          name: 'slash commands are epic!',
+          type: ActivityType.Watching,
+        },
+      ],
+    },
+  },
+};
